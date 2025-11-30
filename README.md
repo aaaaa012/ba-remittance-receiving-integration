@@ -32,7 +32,6 @@ This integration manages the full payout lifecycle:
 ├── UseCases.md
 ├── BusinessRules.md
 ├── UAT_TestCases.md
-├── System_Design.md
 ```
 
 ---
