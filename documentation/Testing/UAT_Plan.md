@@ -1,7 +1,6 @@
 # User Acceptance Test (UAT) Plan
 
 **Project:** Remittance Inbound Integration  
-**Tested By:** Business Analysis Team & QA  
 **Environment:** Staging (Sandbox)  
 
 ---
@@ -37,6 +36,3 @@ The objective of this UAT is to verify that the payout engine correctly processe
 - **Failed**: 0
 - **Blockers**: None
 
-**Sign-off**:  
-*QA Lead*: [Signature]  
-*Business Analyst*: [Signature]  
