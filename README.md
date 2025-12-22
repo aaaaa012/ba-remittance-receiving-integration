@@ -9,9 +9,9 @@
 This repository showcases my work as a **Business Analyst** leading the end-to-end integration of a third-party Remittance Receiving API. The project bridged the gap between an external money transfer operator and our internal financial ecosystem, enabling seamless automated payouts.
 
 **Key Achievements:**
-- 🚀 **Automated Payouts**: Replaced manual file processing with real-time API-driven payouts.
-- 📉 **Reduced Errors**: Implemented robust pre-validation logic, reducing failed transactions by 40%.
-- ⏱️ **Faster Settlement**: Cut down settlement time from T+2 to T+0 (instant).
+- 🚀 **Automated Payouts**
+- 📉 **Reduced Errors**
+- ⏱️ **Faster Settlement**
 
 ---
 
