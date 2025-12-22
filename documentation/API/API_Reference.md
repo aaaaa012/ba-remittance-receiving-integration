@@ -1,7 +1,7 @@
 # API Reference Guide
 
 **Version:** v1.2  
-**Base URL:** `https://api.gateway.internal/v1/payouts`  
+**Base URL:** `https://parnterapi.gateway.integrate/v1/payouts`  
 **Authentication:** Bearer Token (OAuth 2.0)
 
 ---
