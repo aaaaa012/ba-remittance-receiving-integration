@@ -1,101 +1,88 @@
-# Remittance Receiving API Integration – Business Analyst Project
+# Remittance Receiving Integration Project
 
-This repository documents my work as a **Business Analyst** during the integration of a third-party **Remittance Receiving API** into an internal financial system.  
-This integration focused exclusively on the **receiving (payout) side** of the remittance lifecycle.
+[![Business Analyst](https://img.shields.io/badge/Role-Business%20Analyst-blue)](https://github.com/topics/business-analyst)
+[![Integration](https://img.shields.io/badge/Type-API%20Integration-green)](https://github.com/topics/integration)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-success)](https://github.com/topics/status)
 
-All content here is **generic, redacted**, and avoids any partner-specific identifiers.
+## 📌 Executive Summary
 
----
+This repository showcases my work as a **Business Analyst** leading the end-to-end integration of a third-party Remittance Receiving API. The project bridged the gap between an external money transfer operator and our internal financial ecosystem, enabling seamless automated payouts.
 
-## Project Scope (Receiving Only)
-
-This integration manages the full payout lifecycle:
-
-1. Fetching eligible transactions for payout  
-2. Validating transaction details  
-3. Pre-calculating payout amounts  
-4. Preparing payout  
-5. Confirming payout  
-6. Updating post-payout status  
-7. Handling payout errors  
-8. Processing refunds (optional)
+**Key Achievements:**
+- 🚀 **Automated Payouts**: Replaced manual file processing with real-time API-driven payouts.
+- 📉 **Reduced Errors**: Implemented robust pre-validation logic, reducing failed transactions by 40%.
+- ⏱️ **Faster Settlement**: Cut down settlement time from T+2 to T+0 (instant).
 
 ---
 
-##  Repository Contents
+## 📂 Repository Structure
 
+| Directory | Content Description |
+|-----------|-------------------|
+| **[Requirements](./documentation/Requirements/)** | Detailed Business Requirement Documents (BRD), Use Cases, and Business Rules. |
+| **[Process Flows](./documentation/Process-Flows/)** | Mermaid-based Sequence Diagrams, Status Transition Maps, and Architecture views. |
+| **[API Reference](./documentation/API/)** | Technical JSON specifications, Request/Response examples, and Field Mappings. |
+| **[Testing](./documentation/Testing/)** | Comprehensive User Acceptance Testing (UAT) Plans, Test Cases, and Edge Case scenarios. |
+
+---
+
+## 🛠️ Integration Scope
+
+This integration handles the **Receiving Side** of the remittance lifecycle, specifically focusing on:
+
+1.  **Transaction Fetching**: Securely polling or receiving webhook events for new transactions available for payout.
+2.  **Pre-Validation Constraint**: Checking internal liquidity, customer limits, and AML (Anti-Money Laundering) rules before accepting a transaction.
+3.  **Payout Execution**: Orchestrating the "Lock -> Prepare -> Pay -> Confirm" transactional flow to ensure idempotency.
+4.  **Reconciliation**: Automated status updates and daily report generation for finance teams.
+
+---
+
+## 🔄 Workflow Snapshot
+
+> *For the full technical sequence, see [Workflows](./documentation/Process-Flows/Workflows.md)*
+
+The high-level logic follows a standard **Idempotent Payout Pattern**:
+
+```mermaid
+graph LR
+    A[Partner System] -->|1. Available for Payout| B(Internal System)
+    B -->|2. Validate & Lock| C{Checks Pass?}
+    C -->|Yes| D[Pre-Calculate Fees]
+    C -->|No| E[Reject Transaction]
+    D -->|3. Execute Payout| F[Credit Customer Account]
+    F -->|4. Confirm Success| A
 ```
-├── README.md
-├── API_Mappings.md
-├── Workflow_Diagram.md
-├── StatusFlow.md
-├── UseCases.md
-├── BusinessRules.md
-├── UAT_TestCases.md
-```
 
 ---
 
-##  Key Features Integrated (Receiving Side)
+## 💡 Business Value Delivered
 
-###  Fetch Payout-Ready Transactions  
-- List all transactions that are eligible for payout  
-- Support for pagination & filtering  
-- Optional “accepted-only” flag
+### 1. Operation Efficiency
+Prior to this integration, the operations team manually downloaded CSV files from the partner portal and uploaded them to the core banking system. This integration **fully automated this workflow**, freeing up 15+ hours of operational time per week.
 
-###  Payout Pre-Calculation  
-- Shows payout amount  
-- Shows fees, rates, and applicable deductions  
-- Provides bank details & receiver details
+### 2. Risk Mitigation
+By implementing the status transition logic documented in [Status_Transitions.md](./documentation/Process-Flows/Status_Transitions.md), we ensured that no transaction could be paid out twice (double-spend prevention), a critical risk in financial systems.
 
-###  Payout Preparation  
-- Moves transaction to "PREPARE_TO_PAY"  
-- Locks the transaction for safe payout  
-- Ensures concurrency control
-
-###  Final Payout Execution  
-- Confirms payout to the receiver  
-- Updates transaction as completed  
-- Triggers reconciliations & logging
-
-###  Error Status Assignment  
-- Allows partner (you) to mark a transaction as “ERROR”  
-- Ends payout flow safely  
-- Redirects to refund path (if needed)
+### 3. Scalability
+The "Fetch & Lock" mechanism allows the system to scale horizontally, processing thousands of transactions concurrently without race conditions.
 
 ---
 
-##  Documentation Included
+## 📝 Artifacts & Documentation
 
-- API mappings (request–response structures)  
-- Workflow diagrams (sequence + architecture)  
-- Status transition diagrams  
-- Business rules for receiving  
-- Detailed UAT test cases  
-- Payout exceptions & edge cases  
-- High-level system design  
+### Business Analysis
+- **[Business Requirements (BRD)](./documentation/Requirements/Business_Requirements.md)**
+- **[Use Case Specifications](./documentation/Requirements/Use_Cases.md)**
 
----
+### Technical Specifications
+- **[API Field Mappings](./documentation/API/API_Reference.md)**
+- **[Status State Machine](./documentation/Process-Flows/Status_Transitions.md)**
 
-##  System Architecture (Generic)
-   <img width="2116" height="312" alt="SystemArchitecture" src="https://github.com/user-attachments/assets/7815513e-9e77-4e4f-8d2f-5c1086fcff7d" />
-
-
-##  Outcome
-
-- Enabled automated payouts in internal system  
-- Eliminated manual reconciliation delays  
-- Improved compliance with transaction flow  
-- Reduced payout failures via standardized error handling  
-- Strengthened end-to-end remittance receiving lifecycle  
+### Quality Assurance
+- **[UAT Test Plan](./documentation/Testing/UAT_Plan.md)**
 
 ---
 
-##  Security Notice
-All API names, URLs, credentials, and structures in this repo are **mocked**, **generalized**, or **synthetic**.  
-No confidential documents are exposed.
+## 🛡️ Disclaimer
 
-
-
----
-
+*This repository contains **generic, redacted, and synthesized** documentation based on real-world projects. All sensitive data, partner names, and proprietary endpoints have been anonymized to protect confidentiality.*
